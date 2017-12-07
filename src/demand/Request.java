@@ -10,19 +10,19 @@ public class Request {
 	private NodePair nodepair;
 	private double bandwidth;
 	private int slots;
-	//private double time;
-	//private int requesttype;
 	private ArrayList<Link> route;
 	private ArrayList<ResourceOnLink> rollist;
 	private ArrayList<ResourceOnLink> rollist_w;
-	//private ArrayList<ResourceOnLink> rollist_p;
 	private int protection_index;
 	//private int spectrumassigment=1;//频谱分配方式；若为1，则为首次命中，否则为随机选择
     //private Route route;
-	
+	private int requiredrate;
+	private double ArrivalTime;
+	private double DepartTime;
+	private LinearRoute workingroute=null;
+	private int RequestType;	
+	private int demand;
 	/*public Request(NodePair nodepair, double bandwidth, double time) {
-		// TODO Auto-generated constructor stub
-		
 		this.setNodepair(nodepair);
 		this.setRoute(nodepair.getLinearroutelist().get(0).getRoute_linklist());
 //		this.setRoute(route);
@@ -30,9 +30,9 @@ public class Request {
 		this.setTime(time);
 		this.rollist = new ArrayList<ResourceOnLink>();
 	}*/
+
 	
 	//public Request(NodePair nodepair, int slots, double time,int requesttype){ 
-		// TODO Auto-generated constructor stub
 		public Request(NodePair nodepair, int slots){ 
 		this.setNodepair(nodepair);
 		nodepair.setSlotsnum(slots);
@@ -110,55 +110,32 @@ public class Request {
 		}
 	
 	
+	public Request(NodePair nodepair, int demand, double arrivaltime, double departtime, int requesttype) {
+		this.setNodepair(nodepair);
+		this.setdemand(demand);
+		this.setArrivalTime(arrivaltime);
+		this.setDepartTime(departtime);
+		this.setRequesttype(requesttype);
+		this.rollist_w = new ArrayList<ResourceOnLink>();
+		this.workingroute=null;
+	}
 	
-	public ArrayList<Integer> spectrumallocationOneRoute_index(LinearRoute route, int original_index){
-		ArrayList<Link> routelink = route.getLinklist();
-			for(Link link : routelink){
-				if(route.getSlotsnum() == 0){
-					System.out.println("noslots");
-					break;
-				}
-				link.getSlotsindex().clear();
-
-//				System.out.println(link.getName() + "\t" + link.getSlotsindex().size());
-				for(int i = 0; i <=original_index; i++){
-//					System.out.println(link.getName() + "\t" + link.getSlotsindex().size());
-					if(link.getSlotsarray().get(i) == null){
-						int s = 1;
-						for(int k = i; k < route.getSlotsnum() + i; k ++){
-							
-							if(link.getSlotsarray().get(k) != null){
-								s = 0;
-								break;
-							}
-							
-						}
-						if(s != 0){
-							link.getSlotsindex().add(i);
-							
-						}
-					}
-				}	
-			}
-			Link link = routelink.get(0);
-			ArrayList<Integer> sameindex = new ArrayList<Integer>();
-			sameindex.clear();
-			for(int i = 0; i < link.getSlotsindex().size(); i ++){
-				int index = link.getSlotsindex().get(i);
-				int flag = 1;
-				for(Link link2 : routelink){
-					if(!link2.getSlotsindex().contains(index)){
-						flag = 0;
-						break;
-					}
-				}
-				if(flag != 0){
-					sameindex.add(link.getSlotsindex().get(i));
-				}
-			}
-			return sameindex;
-			
-		}
+	public void setdemand(int demand) {
+		this.demand = demand;
+	}
+	public int getdemand() {
+		return demand;
+	}
+	
+	public void setRequesttype(int requesttype) {
+		this.setRequesttype(requesttype);
+	}
+	public void setDepartTime(double departtime) {
+		this.DepartTime = departtime;
+	}
+	public void setArrivalTime(double arrivaltime) {
+		this.ArrivalTime = arrivaltime;		
+	}
 	
 	public void setNodepair(NodePair nodepair) {
 		this.nodepair = nodepair;
@@ -216,5 +193,63 @@ public class Request {
 	{
 		return protection_index;
 	}
+	public int getRequesttype() {
+		return RequestType;
+	}
+	public double getArrivalTime() {
+		return ArrivalTime;
+	}
+	public double getDepartTime() {
+		return DepartTime;
+	}
 
+	public ArrayList<Integer> spectrumallocationOneRoute_index(LinearRoute route, int original_index){
+		ArrayList<Link> routelink = route.getLinklist();
+			for(Link link : routelink){
+				if(route.getSlotsnum() == 0){
+					System.out.println("noslots");
+					break;
+				}
+				link.getSlotsindex().clear();
+
+//				System.out.println(link.getName() + "\t" + link.getSlotsindex().size());
+				for(int i = 0; i <=original_index; i++){
+//					System.out.println(link.getName() + "\t" + link.getSlotsindex().size());
+					if(link.getSlotsarray().get(i) == null){
+						int s = 1;
+						for(int k = i; k < route.getSlotsnum() + i; k ++){
+							
+							if(link.getSlotsarray().get(k) != null){
+								s = 0;
+								break;
+							}
+							
+						}
+						if(s != 0){
+							link.getSlotsindex().add(i);
+							
+						}
+					}
+				}	
+			}
+			Link link = routelink.get(0);
+			ArrayList<Integer> sameindex = new ArrayList<Integer>();
+			sameindex.clear();
+			for(int i = 0; i < link.getSlotsindex().size(); i ++){
+				int index = link.getSlotsindex().get(i);
+				int flag = 1;
+				for(Link link2 : routelink){
+					if(!link2.getSlotsindex().contains(index)){
+						flag = 0;
+						break;
+					}
+				}
+				if(flag != 0){
+					sameindex.add(link.getSlotsindex().get(i));
+				}
+			}
+			return sameindex;
+			
+		}
+	
 }

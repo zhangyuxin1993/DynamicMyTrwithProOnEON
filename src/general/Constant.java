@@ -20,5 +20,8 @@ public class Constant {
 	public final static int ENCONS_OF_TRANSPONDER=73;  //每个变换器耗能73W
 	public final static int ENCONS_OF_EDFA=8;  //每个EDFA耗能8W 
 	public static int maxium=100000000;
+    public final static int ARRIVAL = 1;
+    public final static int SIM_ROUND = 30;//最大仿真次数
+    public final static int DEPARTURE = 2;
 }
 

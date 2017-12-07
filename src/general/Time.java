@@ -4,15 +4,15 @@ import subgraph.LinearRoute;
 public class Time {
 	String name;//记录相应的nodepair的名字
     double time;//相对时间
-    int keytime;//建立还是释放标志
+    int FlagforSetorRelease;//建立还是释放标志
     LinearRoute linearroute;   
     int route_index;
     int Occpy_S=Constant.maxium;
   
-public Time(String name,double time,int keytime, LinearRoute linearroute){
+public Time(String name,double time,int flagforsetorrelease, LinearRoute linearroute){
    this.name=name;
    this.time=time;
-   this.keytime=keytime;
+   this.FlagforSetorRelease=flagforsetorrelease;
    this.linearroute=linearroute;      
 	}
 //记录频谱占用
@@ -40,10 +40,10 @@ public void setRoute(LinearRoute linearroute) {
 }
 
 public int getKeytime() {
-	return keytime;
+	return FlagforSetorRelease;
 }
 public void setKeytime(int keytime) {
-	this.keytime = keytime;
+	this.FlagforSetorRelease = keytime;
 }
 
 public String getName() {

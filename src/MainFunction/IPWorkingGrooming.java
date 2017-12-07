@@ -126,7 +126,7 @@ public class IPWorkingGrooming {
 				WorkandProtectRoute wpr=new WorkandProtectRoute(nodepair);
 //				System.out.print("part2==在IP层找到路由:");
 //				file_io.filewrite_without(OutFileName,"part2==工作路径在IP层找到路由:");
-				newRoute.OutputRoute_node(newRoute);
+//				newRoute.OutputRoute_node(newRoute);
 				routeFlag=true;
 				for (int c = 0; c < newRoute.getLinklist().size(); c++) {
 					Link link = newRoute.getLinklist().get(c); // 找到的路由上面的link

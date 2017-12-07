@@ -11,8 +11,8 @@ import subgraph.LinearRoute;
 
 public class WorkandProtectRoute {//一条业务工作路径 保护路径 以及上面使用的再生器节点
 	private NodePair demand = new NodePair(null, 0, null, null, null, null);
-	private ArrayList<Link> worklinklist=new ArrayList<Link>();
-	private ArrayList<Link> prolinklist=new ArrayList<Link>();
+	private ArrayList<Link> worklinklist=new ArrayList<Link>();//保存业务的工作物理链路（grooming成功的也保存物理链路）
+	private ArrayList<Link> prolinklist=new ArrayList<Link>();//保存业务保护路径的物理链路
 	private ArrayList<VirtualLink> provirtuallinklist=new ArrayList<>();
 	private HashMap<Integer, Regenerator> regthinglist=null; 
 	private ArrayList<Regenerator> Regneratorlist=new ArrayList<Regenerator>();
