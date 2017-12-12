@@ -446,11 +446,12 @@ public class opProGrooming {// 光层路由保护
 							link.getSlotsarray().get(recovery).getoccupiedreqlist().add(request);
 							
 							for (int co = index_wave.get(0); co < index_wave.get(0) + slotnum; co++) {
-								if (co == recovery) {
-									share++;
-									break;
-								}
+									if (co == recovery) {
+										share++;
+										break;
+									}
 							}
+						 
 						}
 					}
 				}
@@ -461,7 +462,6 @@ public class opProGrooming {// 光层路由保护
 				
 			}
 			nodePair.setSlotsnum(newFS);
-			
 		}
 //		else{
 //			System.out.println("路径堵塞 ，不分配频谱资源");

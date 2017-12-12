@@ -113,6 +113,7 @@ public class IPWorkingGrooming {
 			
 			Request re=new Request(nodepair);
 			ArrayList<Link> totallink=new ArrayList<>();
+			ArrayList<VirtualLink> GroomIPLink=new ArrayList<>();
 			Dijkstra.Dijkstras(srcnode, desnode, iplayer, newRoute, null);
 
 			// 恢复iplayer里面删除的link
@@ -138,7 +139,8 @@ public class IPWorkingGrooming {
 						Link link1 = (Link) (linklist2.get(linkitor2.next()));// IPlayer里面的link
 						if(link1.getNodeA().getName().equals(link.getNodeA().getName())&&link1.getNodeB().getName().equals(link.getNodeB().getName())){			
 						//在IP层找到该路径 修改虚拟链路容量的值此时每条IP连路上只有一条虚拟链路
-								VirtualLink Vlink=link1.getVirtualLinkList().get(0);
+							    VirtualLink Vlink=link1.getVirtualLinkList().get(0);
+							    GroomIPLink.add(Vlink);	
 								Vlink.setUsedcapacity(Vlink.getUsedcapacity() + nodepair.getTrafficdemand());
 								Vlink.setRestcapacity(Vlink.getFullcapacity() - Vlink.getUsedcapacity());
 //								System.out.println("IP层链路 "+ link1.getName()+"上虚拟链路剩余容量为："+ Vlink.getRestcapacity());
@@ -150,6 +152,7 @@ public class IPWorkingGrooming {
 					}
 				wpr.setrequest(re);
 				wpr.setworklinklist(totallink);
+				wpr.setGroomworkIPLink(GroomIPLink);
 				wprlist.add(wpr);
 			}
 				//恢复链路上对应的虚拟链路

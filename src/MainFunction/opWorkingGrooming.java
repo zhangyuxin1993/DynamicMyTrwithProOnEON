@@ -107,10 +107,12 @@ public class opWorkingGrooming {
 				Link finlink=iplayer.findLink(srcnode, desnode);
 				Link createlink = new Link(null, 0, null, iplayer, null, null, 0, 0);
 				boolean findflag=false;
+				int indexOfVirtualLink=1;
 				System.out.println();
 				try{
 					System.out.println("IP层中找到工作链路"+finlink.getName());
 					file_io.filewrite2(OutFileName,"IP层中找到工作链路"+finlink.getName());
+					indexOfVirtualLink=finlink.getVirtualLinkList().size();
 					findflag=true;
 				}catch(java.lang.NullPointerException ex){
 					System.out.println("IP 层没有该工作链路需要新建链路");
@@ -120,6 +122,7 @@ public class opWorkingGrooming {
 				}
 				
 				VirtualLink Vlink = new VirtualLink(srcnode.getName(), desnode.getName(), 0, 0);
+				Vlink.setindex(indexOfVirtualLink+1); 
 				Vlink.setnature(0);
 				Vlink.setUsedcapacity(Vlink.getUsedcapacity() + nodepair.getTrafficdemand());
 				Vlink.setFullcapacity(slotnum * X);// 多出来的flow是从这里产生的
@@ -127,6 +130,7 @@ public class opWorkingGrooming {
 				Vlink.setlength(length1);
 				Vlink.setcost(cost);
 				Vlink.setPhysicallink(opnewRoute.getLinklist());	
+				
 				
 				if(findflag){//如果在IP层中已经找到该链路
 				finlink.getVirtualLinkList().add(Vlink);

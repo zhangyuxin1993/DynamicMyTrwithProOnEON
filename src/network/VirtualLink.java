@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class VirtualLink {
 	private String srcnode = null;
 	private String desnode = null;
+	private int index = 0;
 	private double fullcapacity = 0;
 	private double restcapacity = 0;
 	private double usedcapacity = 0;
@@ -20,6 +21,13 @@ public class VirtualLink {
 		this.desnode = desnode;
 		this.nature = nature;
 	}
+	public void setindex(int  index) {
+		this.index=index;
+	}
+	public int getindex() {
+		return index;
+	}
+	
 	public void setcost(double  cost) {
 		this.cost=cost;
 	}
